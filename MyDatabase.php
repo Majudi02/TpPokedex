@@ -6,6 +6,7 @@ class MyDatabase{
 
     public function __construct()
     {
+
         $config=parse_ini_file("config.ini");
 
         $this->conection = new Mysqli(
@@ -14,6 +15,9 @@ class MyDatabase{
             $config["pass"],
             $config["db"]
         ) ;
+
+
+        $this->conection->set_charset("utf8mb4");
     }
 
     public function __destruct(){
