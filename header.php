@@ -23,14 +23,14 @@
 
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100" ">
 
     <header>
         <nav class="navbar navbar-expand-lg  " style="background-color: #d2f4ea ;">
             <div class="container-fluid d-flex justify-content-between align-items-center">
 
                 <a class="navbar-brand" href="#">
-                    <img src="./Imagenes/Logo-pokedex.png" alt="Logo" width="60" height="60" class="ms-3 ">
+                    <img src="./Imagenes/Logoo.png" alt="Logo" width="60" height="60" class="ms-3 ">
                 </a>
 
                 <div class="flex-grow-1 text-center">
