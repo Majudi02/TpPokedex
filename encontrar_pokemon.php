@@ -1,31 +1,65 @@
 <?php
 include_once "MyDatabase.php";
+$database = new MyDatabase();
 
-function encontrarPokemon(){
-    if (!isset($_POST["nombrePokemon"])) {
-        return;
+function encontrarPokemon($database){
+    if (!isset($_POST["pokemonBuscado"])) {
+        return null;
     }
-    $pokemonBuscado = strtolower($_POST["nombrePokemon"]);
 
-    $database = new MyDatabase();
+    $pokemonBuscado = strtolower($_POST["pokemonBuscado"]);
     $listaDb = $database->query("SELECT * FROM pokemones");
     $tiposDb = $database->query("Select * from tipo");
 
+
+    function buscarPokemonPorTipo($tipoBuscado, $database){
+
+        $tiposDb = $database->query("Select * from tipo");
+        $listaDb = $database->query("SELECT * FROM pokemones");
+        foreach ($tiposDb as $tipo){
+            if(strtolower($tipo['tipo']) === $tipoBuscado){
+                foreach ($listaDb as $pokemon){
+                    if ($pokemon['tipo_id'] === $tipo['id']) {
+                        $resultado[]= $pokemon;
+                    }
+                }
+            }
+        }
+        return $resultado;
+    }
+
+    function existeTipo($tipoBuscado, $database){
+
+        $tiposDb = $database->query("Select * from tipo");
+        foreach ($tiposDb as $tipo){
+
+            if(strtolower($tipo['tipo']) === $tipoBuscado){
+                return true;
+            }
+        }
+
+    }
+
     foreach ($listaDb as $pokemon) {
-        if (strtolower($pokemon["nombre"]) === $pokemonBuscado) {
-            echo "<h1>Nombre: {$pokemon['nombre']}</h1>";
-            echo "<h1>Descripcion: {$pokemon['descripcion']}</h1>";
+        if (strtolower($pokemon["nombre"]) === $pokemonBuscado || strtolower($pokemon["id"]) === $pokemonBuscado) {
 
             foreach ($tiposDb as $tipo){
                 if ($tipo['id'] == $pokemon['tipo_id']) {
-                    echo "<h1>Tipo: {$tipo['tipo']}</h1>";
+                    $pokemon['tipo_id'] = $tipo['id'];
                     break;
                 }
             }
-            return;
+
+            return $pokemon;
+        } else if (existeTipo($pokemonBuscado, $database)) {
+            return buscarPokemonPorTipo($pokemonBuscado, $database);
         }
     }
-    echo "<p>Pokémon no encontrado</p>";
-    echo  json_encode($listaDb);
+
+
+   return false;
 }
-?>
+
+
+
+
