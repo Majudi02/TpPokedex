@@ -29,12 +29,15 @@
         <nav class="navbar navbar-expand-lg  " style="background-color: #d2f4ea ;">
             <div class="container-fluid d-flex justify-content-between align-items-center">
 
-                <a class="navbar-brand" href="#">
-                    <img src="./Imagenes/Logoo.png" alt="Logo" width="60" height="60" class="ms-3 ">
+                <a class="navbar-brand" href="pagina_principal.php">
+                    <img src="./Imagenes/Logo_img.png" alt="Logo" width="70" height="70" class="ms-3 ">
                 </a>
 
                 <div class="flex-grow-1 text-center">
-                    <h1 class="m-0">Pokedex</h1>
+                    <a href="pagina_principal.php">
+                        <img class="m-0 pb-2" src="./Imagenes/Logo_Pokdex.png" width="210" height="100"></img>
+
+                    </a>
                 </div>
 
             </div>
