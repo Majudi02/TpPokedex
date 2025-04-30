@@ -1,6 +1,6 @@
 <?php
-require_once 'header.php';
-require_once 'MyDatabase.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/ProyectoPokedex/header.php';
+require_once  $_SERVER['DOCUMENT_ROOT'] . '/ProyectoPokedex/MyDatabase.php';
 $errores =[];
 $insertar_pokemon = false;
 $database = new MyDatabase();
@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $verif_nombre = $database->query("SELECT id FROM pokemones WHERE nombre = '$nombre'");
     if (count($verif_nombre) > 0) {
-        $errores[] = "Error: Ya existe un Pokemon con ese nombre.";
+        $errores[] = "Error: Ya existe un Pokemon con el nombre $nombre.";
 
     }
 
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     $verif_id = $database->query("SELECT id FROM pokemones WHERE id_unico = '$id_unico'");
     if (count($verif_id) > 0) {
-        $errores[] = "Error: Ya existe un Pokemon con ese ID.";
+        $errores[] = "Error: Ya existe un Pokemon con el ID $id_unico.";
 
     }
 
@@ -48,11 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
     if(empty($errores)){ //si no hay errores, hace el insert
-        $insertar_pokemon = $database->insert("INSERT INTO pokemones (nombre, id_unico, tipo_id, descripcion, imagen)
+        $insertar_pokemon = $database->execute("INSERT INTO pokemones (nombre, id_unico, tipo_id, descripcion, imagen)
                                             VALUES ('$nombre', '$id_unico', $tipo_id, '$descripcion', '$imagen_nombre')");
 
     }
 }
+
 ?>
 
 <div class="container mt-5">
@@ -66,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "</div>";
         }
         if(empty($errores) && $insertar_pokemon) {
-            echo "<div class='alert alert-success''> Pokemon agregado con éxito </div>";
+            echo "<div class='alert alert-success''> Pokemon agregado con éxito </div> <a class='btn btn-outline-secondary' href='inicio_logeado.php'>Todos los Pokemones</a>" ;
         }
          ?>
       <div class="card-header">
@@ -129,17 +130,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php
 
 
-//
-//$imagen_original = $_FILES['imagen']['name'];
-//$imagen_tmp = $_FILES['imagen']['tmp_name'];
-//$extension = strtolower(pathinfo($imagen_original, PATHINFO_EXTENSION));
-//$imagen_nombre = strtolower($nombrePokemon) . "." . $extension;
-//$ruta_destino = "imagenes/" . $imagen_nombre;
-//
-//if (move_uploaded_file($imagen_tmp, $ruta_destino)) {
-//// Insertar en la base de datos
-//    $database->query = ("INSERT INTO pokemon (nombre, id_unico, tipo, descripcion, imagen)
-//VALUES ('$nombrePokemon', '$id_unico', '$tipoPokemon', '$descripcionPokemon', '$imagen_nombre'");
-//}
 
-include_once 'footer.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ProyectoPokedex/footer.php';

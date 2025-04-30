@@ -59,7 +59,7 @@ function getTipoById($tipo_id) {
                         $tipo = getTipoById($pokemon['tipo_id']);
                         echo "<td><img src='images/tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
                         echo "<td >
-                        <a class='btn btn-outline-secondary '>Modificar</a>
+                        <a href='./administrar_pokemones/modificar_pokemon.php?id={$pokemon['id']}' class='btn btn-outline-secondary '>Modificar</a>
                         <a href='./administrar_pokemones/eliminar_pokemon.php?id={$pokemon['id']}' class='btn btn-outline-secondary'>Eliminar</a>
                         </td>";
                     }
