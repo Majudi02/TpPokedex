@@ -1,7 +1,6 @@
 <?php
-include 'header.php';
-include 'encontrar_pokemon.php';
-include_once 'MyDatabase.php';
+require_once 'header.php';
+require_once 'encontrar_pokemon.php';
 
  $database = new MyDatabase();
  $listaDb = $database->query("SELECT * FROM pokemones");
@@ -33,51 +32,18 @@ function getTipoById($tipo_id) {
 
         <div>
             <?php
-            encontrarPokemon();
+            encontrarPokemon($listaDb);
             ?>
         </div>
 
-        <div>
-            <style>
-                table {
-                    width: 80%;
-                    max-width: 900px;
-                    margin: 0 auto;
-                    border-collapse: collapse;
-                    margin-bottom: 20px;
-                    margin-top: 20px;
-                    overflow-x: auto;
+        <div class="container mt-5 pb-5">
 
-                }
-
-                th, td {
-                    border: 1px solid #ddd;
-                    padding: 8px 12px;
-                    text-align: left;
-                }
-                td img {
-                    width: 50px;
-                    height: 50px;
-                    object-fit: cover;
-                }
-                td button {
-                    margin-right: 5px;
-                }
-                th {
-                    background-color: #f2f2f2;
-                    font-weight: bold;
-                }
-
-                tr:nth-child(even) {
-                    background-color: #f9f9f9;
-                }
-            </style>
-
-            <table>
+            <table class='table table-bordered'>
                 <thead>
                 <tr>
-                    <th>Imagen</th>
+                    <th>Numero</th>
                     <th>Nombre</th>
+                    <th>Imagen</th>
                     <th>Tipo</th>
                     <th>Acciones</th>
                 </tr>
@@ -87,16 +53,15 @@ function getTipoById($tipo_id) {
                 if (!empty($listaDb)) {
                     foreach ($listaDb as $pokemon) {
                         echo "<tr>";
+                        echo "<td>". htmlspecialchars($pokemon['id']) . "</td>";
+                        echo "<td>" . $pokemon["nombre"] . "</td>";
                         echo "<td><img src='" . $pokemon["imagen"] . "' alt='" . $pokemon["nombre"] . "'></td>";  // Imagen
                         $tipo = getTipoById($pokemon['tipo_id']);
                         echo "<td><img src='images/tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
-                        echo "<td>" . $pokemon["nombre"] . "</td>";
-                        echo "<td>
-                          
-                            <button class='btn btn-outline-secondary'>Modificar</button>
-                            <button class='btn btn-outline-secondary'>Baja</button>
+                        echo "<td >
+                        <a class='btn btn-outline-secondary '>Modificar</a>
+                        <a href='./administrar_pokemones/eliminar_pokemon.php?id={$pokemon['id']}' class='btn btn-outline-secondary'>Eliminar</a>
                         </td>";
-                        echo "</tr>";
                     }
                 } else {
                     echo "<tr><td colspan='5'>No se encontraron Pokémon.</td></tr>";
@@ -105,7 +70,9 @@ function getTipoById($tipo_id) {
                 </tbody>
             </table>
         </div>
-
+        <div class="container d-flex justify-content-center mb-5 ">
+        <a href='agregar_pokemon.php' class='btn btn-outline-secondary w-100'>Nuevo Pokemon</a>
+        </div>
     </main>
 
 
