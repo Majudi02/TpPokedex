@@ -21,14 +21,14 @@ if (empty($pokemon)) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($errores)) {
-    // Aquí definimos las variables una vez que el formulario se envió
+
     $nombre = $_POST['nombre'];
     $id_unico = $_POST['id_unico'];
     $tipo_id = (int) $_POST['tipo'];
     $descripcion = $_POST['descripcion'];
     $imagen_nombre = $pokemon['imagen']; // mantener la imagen anterior por defecto
 
-    // Si se subió una nueva imagen:
+    // reemplazo la imagen anterior por la nueva
     if (!empty($_FILES['imagen']['name'])) {
         $imagen_original = $_FILES['imagen']['name'];
         $imagen_tmp = $_FILES['imagen']['tmp_name'];
