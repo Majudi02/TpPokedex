@@ -1,7 +1,18 @@
 <?php
+session_start();
+
 include 'header.php';
 include 'encontrar_pokemon.php';
 ?>
+
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+<?php endif; ?>
 
     <main class="flex-grow-1">
 
@@ -97,6 +108,6 @@ include 'encontrar_pokemon.php';
 
     </main>
 
-
 <?php
 include 'footer.php';
+?>
