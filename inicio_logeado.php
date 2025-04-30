@@ -92,6 +92,9 @@ require_once 'encontrar_pokemon.php';
             }
             ?>
         </div>
+        <div class="container d-flex justify-content-center mb-5 ">
+            <a href='agregar_pokemon.php' class='btn btn-outline-secondary w-100'>Nuevo Pokemon</a>
+        </div>
     </main>
 
 
