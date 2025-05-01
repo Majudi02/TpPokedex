@@ -1,17 +1,21 @@
 <?php
+session_start();
+
 include 'header.php';
 require_once 'encontrar_pokemon.php';
 
 ?>
 
-    <main class="flex-grow-1">
-        <div class="position-absolute top-0 end-0 mt-4 me-3 z-3">
-            <form action="" method="post" class="d-flex align-items-center p-2">
-                <input class="form-control me-2 " type="text" name="Usuario" placeholder="Usuario" style="max-width: 150px">
-                <input class="form-control me-2" type="password" name="Password" placeholder="Password" style="max-width: 150px">
-                <button class="btn btn-outline-secondary" type="submit">Ingresar</button>
-            </form>
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    </div>
+<?php endif; ?>
+
+    <main class="flex-grow-1">
 
         <div class="container d-flex justify-content-center mt-5">
             <form class="d-flex" style="width: 100%; max-width: 900px;" action="pagina_principal.php" method="post">
@@ -106,6 +110,6 @@ require_once 'encontrar_pokemon.php';
     
     </main>
 
-
 <?php
 include 'footer.php';
+?>

@@ -1,5 +1,11 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {  //inicia sesion solo si no hay una previamente iniciada
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -14,36 +20,44 @@
     <title>Pokedex</title>
 
     <style>
-        *{
+        * {
             font-family: 'Montserrat', sans-serif;
         }
-
-
     </style>
-
 </head>
 
-<body class="d-flex flex-column min-vh-100" >
+<body class="d-flex flex-column min-vh-100">
 
-    <header class="position-relative" style="background-color: #d2f4ea">
-        <nav class="navbar navbar-expand-lg  ">
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #d2f4ea;">
             <div class="container-fluid d-flex justify-content-between align-items-center">
 
-                <div>
-                    <a class="navbar-brand" href="pagina_principal.php">
-                        <img src="./Imagenes/Logo_img.png" alt="Logo" width="70" height="70" class="ms-3 img-fluid">
-                    </a>
-                </div>
+                <a class="navbar-brand" href="index.php">
+                    <img src="./Imagenes/Logo_img.png" alt="Logo" width="70" height="70" class="ms-3">
+                </a>
 
-
-                <div class="flex-grow-1" style="margin-left: 25rem">
+                <div class="flex-grow-1 text-center">
                     <a href="pagina_principal.php">
-                        <img class="pb-2" src="./Imagenes/Logo_Pokdex.png" width="210" height="100"></img>
+                        <img class="m-0 pb-2" src="./Imagenes/Logo_Pokdex.png" width="210" height="100" alt="Pokedex">
                     </a>
                 </div>
-            </div>
 
+                <div class="me-4 d-flex align-items-center">
+
+                    <?php
+                    $pagina_actual = basename($_SERVER['PHP_SELF']);
+                    if (isset($_SESSION['usuario']) && $pagina_actual === 'inicio_logueado.php'): ?>
+                        <span class="me-3 fw-bold">Usuario: <?php echo $_SESSION['usuario']; ?></span>
+                        <a href="logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
+
+                    <?php elseif ($pagina_actual !== 'index.php'): ?>
+                        <form action="login.php" method="post" class="d-flex align-items-center">
+                            <a href="login.php" class="btn btn-outline-secondary me-2">Ingresar</a>
+                            <a href="registrarse.php" class="btn btn-outline-primary">Registrarse</a>
+                        </form>
+                    <?php endif; ?>
+                </div>
+
+            </div>
         </nav>
     </header>
-
-
