@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    $_SESSION['error'] = 'Debes iniciar sesión para acceder a esta página.';
+    header('Location: ../index.php');
+    exit();
+}
 require_once ('../header.php');
 require_once ('../MyDatabase.php');
 $database = new MyDatabase();
@@ -80,7 +86,7 @@ if (empty($errores)) {
             <h2 class="mb-0">Modificar Pokemon</h2>
 
         </div>
-        <a class='btn btn-outline-secondary' href='../inicio_logeado.php'>Todos los Pokemones</a>
+        <a class='btn btn-outline-secondary' href='../inicio_logueado.php'>Todos los Pokemones</a>
         <div class="card-body">
             <form action="modificar_pokemon.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
                 <!-- Nombre -->
