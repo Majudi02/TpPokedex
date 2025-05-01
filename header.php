@@ -37,7 +37,7 @@ if (session_status() === PHP_SESSION_NONE) {  //inicia sesion solo si no hay una
                 </a>
 
                 <div class="flex-grow-1 text-center">
-                    <a href="pagina_principal.php">
+                    <a href="index.php">
                         <img class="m-0 pb-2" src="./Imagenes/Logo_Pokdex.png" width="210" height="100" alt="Pokedex">
                     </a>
                 </div>
@@ -53,7 +53,7 @@ if (session_status() === PHP_SESSION_NONE) {  //inicia sesion solo si no hay una
                     <?php elseif ($pagina_actual !== 'index.php'): ?>
                         <form action="login.php" method="post" class="d-flex align-items-center">
                             <a href="login.php" class="btn btn-outline-secondary me-2">Ingresar</a>
-                            <a href="registrarse.php" class="btn btn-outline-primary">Registrarse</a>
+                            <a href="registrarse.php" class="btn btn-outline-success">Registrarse</a>
                         </form>
                     <?php endif; ?>
                 </div>

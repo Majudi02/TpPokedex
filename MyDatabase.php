@@ -32,7 +32,7 @@ class MyDatabase{
         return $datos->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getConnection(): Mysqli
+    public function getConnection(): mysqli
     {
         return $this->conection;
     }
