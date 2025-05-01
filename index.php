@@ -8,7 +8,3 @@ if(session_status() === PHP_SESSION_ACTIVE){
 } else {
     header('Location: pagina_principal.php');
 }
-
-
-
-

@@ -37,4 +37,8 @@ class MyDatabase{
         return $this->conection;
     }
 
+    // Metodo para insertar en la db
+    public function execute($sql) {
+        return $this->conection->query($sql);
+    }
 }

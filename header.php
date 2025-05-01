@@ -32,32 +32,28 @@ if (session_status() === PHP_SESSION_NONE) {  //inicia sesion solo si no hay una
         <nav class="navbar navbar-expand-lg" style="background-color: #d2f4ea;">
             <div class="container-fluid d-flex justify-content-between align-items-center">
 
-                <a class="navbar-brand" href="index.php">
-                    <img src="./Imagenes/Logo_img.png" alt="Logo" width="70" height="70" class="ms-3">
-                </a>
-
                 <div class="flex-grow-1 text-center">
                     <a href="index.php">
                         <img class="m-0 pb-2" src="./Imagenes/Logo_Pokdex.png" width="210" height="100" alt="Pokedex">
                     </a>
                 </div>
 
-                <div class="me-4 d-flex align-items-center">
+            <div class="me-4 d-flex align-items-center">
 
-                    <?php
-                    $pagina_actual = basename($_SERVER['PHP_SELF']);
-                    if (isset($_SESSION['usuario']) && $pagina_actual === 'inicio_logueado.php'): ?>
-                        <span class="me-3 fw-bold">Usuario: <?php echo $_SESSION['usuario']; ?></span>
-                        <a href="logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
+                <?php
+                $pagina_actual = basename($_SERVER['PHP_SELF']);
+                if (isset($_SESSION['usuario']) && $pagina_actual === 'inicio_logueado.php'): ?>
+                    <span class="me-3 fw-bold">Usuario: <?php echo $_SESSION['usuario']; ?></span>
+                    <a href="logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
 
-                    <?php elseif ($pagina_actual !== 'index.php'): ?>
-                        <form action="login.php" method="post" class="d-flex align-items-center">
-                            <a href="login.php" class="btn btn-outline-secondary me-2">Ingresar</a>
-                            <a href="registrarse.php" class="btn btn-outline-success">Registrarse</a>
-                        </form>
-                    <?php endif; ?>
-                </div>
-
+                <?php elseif ($pagina_actual !== 'index.php' && $pagina_actual === 'pagina_principal.php'): ?>
+                    <form action="login.php" method="post" class="d-flex align-items-center">
+                        <a href="login.php" class="btn btn-outline-secondary me-2">Ingresar</a>
+                        <a href="registrarse.php" class="btn btn-outline-success">Registrarse</a>
+                    </form>
+                <?php endif; ?>
             </div>
-        </nav>
-    </header>
+
+        </div>
+    </nav>
+</header>
