@@ -40,13 +40,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($errores)) {
         $imagen_tmp = $_FILES['imagen']['tmp_name'];
         $extension = strtolower(pathinfo($imagen_original, PATHINFO_EXTENSION));
         $imagen_nombre = strtolower($nombre) . "." . $extension;
-        $ruta_destino = "../imagenes/" . $imagen_nombre;
+        $ruta_destino = "../Imagenes/Pokemones/" . $imagen_nombre;
 
         if (!move_uploaded_file($imagen_tmp, $ruta_destino)) {
             $errores[] = "Error: No se pudo subir la nueva imagen.";
         } else {
             // Borro la imagen anterior si es distinta
-            $imagen_anterior = "../imagenes/" . $pokemon['imagen'];
+            $imagen_anterior = "../Imagenes/Pokemones/" . $pokemon['imagen'];
             if ($imagen_anterior !== $ruta_destino && file_exists($imagen_anterior)) {
                 unlink($imagen_anterior);
             }
@@ -131,7 +131,7 @@ if (empty($errores)) {
                 <!-- Imagen actual -->
                 <div class="mb-3">
                     <label for="imagen" class="form-label">Imagen del Pokemon Actual:</label>
-                    <p class="ms-5"> <img src="../imagenes/<?= $pokemon['imagen'] ?>" width="100"></p>
+                    <p class="ms-5"> <img src="../Imagenes/Pokemones/<?= $pokemon['imagen'] ?>" width="100"></p>
                     <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*">
                 </div>
 

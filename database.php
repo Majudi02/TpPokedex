@@ -1,6 +1,6 @@
 <?php
 
-include_once "MyDatabase.php";
+require_once "MyDatabase.php";
 
 
 $database= new MyDatabase();

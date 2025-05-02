@@ -46,9 +46,10 @@ if (session_status() === PHP_SESSION_NONE) {  //inicia sesion solo si no hay una
 
                 <?php
                 $pagina_actual = basename($_SERVER['PHP_SELF']);
-                if (isset($_SESSION['usuario']) && $pagina_actual === 'inicio_logueado.php'): ?>
+                if (isset($_SESSION['usuario']) && $pagina_actual === 'inicio_logueado.php' ||
+                     strpos($pagina_actual, 'agregar_pokemon.php') !== false || strpos($pagina_actual, 'modificar_pokemon.php') !== false): ?>
                     <span class="me-3 fw-bold">Usuario: <?php echo $_SESSION['usuario']; ?></span>
-                    <a href="logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
+                    <a href="/ProyectoPokedex/logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
 
                 <?php elseif ($pagina_actual !== 'index.php' && $pagina_actual === 'pagina_principal.php'): ?>
                     <form action="login.php" method="post" class="d-flex align-items-center">

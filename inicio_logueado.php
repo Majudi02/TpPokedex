@@ -107,9 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
                     echo "<tbody><tr>";
                     echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
                     echo "<td>" . htmlspecialchars($pokemon['nombre']) . "</td>";
-                    echo "<td><img src='./Imagenes/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
+                    echo "<td><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
                     $tipo = getTipoById($pokemon['tipo_id'], $db);
-                    echo "<td><img src='./Imagenes/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
+                    echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
                     echo "<td>
                         <a href='./administrar_pokemones/modificar_pokemon.php?id={$pokemon['id']}' class='btn btn-outline-secondary'>Modificar</a>
                         <a href='./administrar_pokemones/eliminar_pokemon.php?id={$pokemon['id']}'
@@ -133,9 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
                     echo "<td>" . htmlspecialchars($pokemon['nombre']) . "</td>";
-                    echo "<td><img src='images/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
+                    echo "<td><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
                     $tipo = getTipoById($pokemon['tipo_id'], $db);
-                    echo "<td><img src='images/tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
+                    echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
                     echo "<td>
                         <a href='./administrar_pokemones/modificar_pokemon.php?id={$pokemon['id']}' class='btn btn-outline-secondary'>Modificar</a>
                         <a href='./administrar_pokemones/eliminar_pokemon.php?id={$pokemon['id']}'
@@ -152,7 +152,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
             ?>
         </div>
         <div class="container d-flex justify-content-center mb-5 ">
-            <a href='administrar_pokemones/agregar_pokemon.php' class='btn btn-outline-secondary w-100'>Nuevo Pokemon</a>
+            <a href='administrar_pokemones/agregar_pokemon.php' class='btn btn-outline-secondary w-100 fs-5 fw-semibold'>
+                <img src="./Imagenes/agregar.png" alt="Agregar" width="25" class="me-2 mt-2 mb-2">
+                Nuevo Pokemon
+            </a>
         </div>
     </main>
 

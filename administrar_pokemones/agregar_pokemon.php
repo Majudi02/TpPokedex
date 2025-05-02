@@ -6,6 +6,7 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
+
 require_once  '../header.php';
 require_once  '../MyDatabase.php';
 $errores =[];
@@ -46,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 // determino el nombre final de la imagen con el nombre del pokemon
         $imagen_nombre = strtolower($nombre) . "." . $extension;
 
-        $ruta_destino = "imagenes/Pokemones" . $imagen_nombre;
+        $ruta_destino = "Imagenes/Pokemones/" . $imagen_nombre;
 
         if(empty($errores)) { //si no hay errores subo la foto
             if (!move_uploaded_file($imagen_tmp, $ruta_destino)) { //si no se pudo subir la foto, muestro el error
@@ -80,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       <div class="card-header">
         <h2 class="mb-0">Agregar nuevo Pokemon</h2>
       </div>
+        <a class='btn btn-outline-secondary' href='../inicio_logueado.php'>Todos los Pokemones</a>
       <div class="card-body">
         <form action="agregar_pokemon.php" method="POST" enctype="multipart/form-data">
 

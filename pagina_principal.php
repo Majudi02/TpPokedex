@@ -29,87 +29,76 @@ require_once 'encontrar_pokemon.php';
             </form>
         </div>
 
-
         <div class="container mt-5 pb-5">
 
-                <?php
-                require_once 'MyDatabase.php';
-                $db = new MyDatabase();
-                $resultadoBusqueda = encontrarPokemon($db);
+            <?php
+            require_once 'MyDatabase.php';
+            $db = new MyDatabase();
+            $resultadoBusqueda = encontrarPokemon($db);
+
 
                 function getTipoById($tipo_id, $db) {
                     $resultado = $db->query("SELECT imagen FROM tipo WHERE id = $tipo_id");
                     return $resultado ? $resultado[0]['imagen'] : 'default.png';
                 }
 
-                if ($resultadoBusqueda === false){
-                    echo "<div class='text-danger '>
-                               <h4>Pokemon no encontrado!</h4>
-                          </div>";
+
+            if (isset($_POST["pokemonBuscado"]) && $resultadoBusqueda === false) {
+                echo "<div class='text-danger'><h4>¡Pokémon no encontrado!</h4></div>";
+            }
+
+            // Si es una lista de pokemones
+            if (is_array($resultadoBusqueda) && isset($resultadoBusqueda[0])) {
+                echo "<table class='table table-bordered'>";
+                echo "<thead><tr><th>Número</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead><tbody>";
+
+                foreach ($resultadoBusqueda as $pokemon) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'>" . htmlspecialchars($pokemon['nombre']) . "</a></td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></a></td>";
+                    $tipo = getTipoById($pokemon['tipo_id'], $db);
+                    echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
+                    echo "</tr>";
                 }
 
-                //si es una lista de pokmones
-                if (is_array($resultadoBusqueda) && isset($resultadoBusqueda[0])){
-                    echo "<table class='table table-bordered'>";
-                    echo "<thead><tr><th>Numero</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead>";
+                echo "</tbody></table>";
+            }
 
-                    foreach ($resultadoBusqueda as $pokemon){
-                        echo "<tbody><tr>";
-                        echo "<td>". htmlspecialchars($pokemon['id']) . "</td>";
-                        echo "<td>".htmlspecialchars($pokemon['nombre'])."</td>";
-                        echo "<td><img src='./Imagenes/". htmlspecialchars($pokemon['imagen']) ."' alt='".htmlspecialchars($pokemon['nombre']) ."'  width='50'> </td>";
-                        $tipo= getTipoById($pokemon['tipo_id'], $db);
-                        echo "<td><img src='./Imagenes/". htmlspecialchars($tipo) ."' alt='Tipo ".htmlspecialchars($pokemon['tipo_id']) ."'  width='50'></td>";
-                        echo "</tr>";
+            // Si es un solo pokemon
+            elseif (is_array($resultadoBusqueda) && isset($resultadoBusqueda['id'])) {
+                echo "<h4 class='text-success'>Pokémon Encontrado</h4>";
+                echo "<table class='table table-bordered'>";
+                echo "<thead><tr><th>Número</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead><tbody><tr>";
+                echo "<td>" . htmlspecialchars($resultadoBusqueda['id']) . "</td>";
+                echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($resultadoBusqueda['id_unico']) . "'>" . htmlspecialchars($resultadoBusqueda['nombre']) . "</a></td>";
+                echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($resultadoBusqueda['id_unico']) . "'><img src='Imagenes/Pokemones/" . htmlspecialchars($resultadoBusqueda['imagen']) . "' alt='" . htmlspecialchars($resultadoBusqueda['nombre']) . "' width='50'></a></td>";
+                $tipo = getTipoById($resultadoBusqueda['tipo_id'], $db);
+                echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($resultadoBusqueda['tipo_id']) . "' width='50'></td>";
+                echo "</tr></tbody></table>";
+            }
 
-                    }
-                    echo "</tbody></table>";
+            // Mostrar todos por defecto o si no se encontró ninguno
+            if (!isset($_POST["pokemonBuscado"]) || $resultadoBusqueda === false) {
+                $pokemones = $db->query("SELECT * FROM pokemones");
+                echo "<table class='table table-bordered'>";
+                echo "<thead><tr><th>Número</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead><tbody>";
+
+                foreach ($pokemones as $pokemon) {
+                    echo "<tr>";
+                    echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'>" . htmlspecialchars($pokemon['nombre']) . "</a></td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></a></td>";
+                    $tipo = getTipoById($pokemon['tipo_id'], $db);
+                    echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
+                    echo "</tr>";
                 }
 
-                //si es un solo pokemon
-                elseif (is_array($resultadoBusqueda) && isset($resultadoBusqueda['id'])){
-                    echo "<h4 class='text-success'>Pokemon Encontrado</h4>";
-                    echo "<table class='table table-bordered'>";
-
-                    echo "<thead><tr><th>Numero</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead>";
-                    echo "<tbody><tr>";
-                    echo "<td>". htmlspecialchars($resultadoBusqueda['id']) . "</td>";
-                    echo "<td>". htmlspecialchars($resultadoBusqueda['nombre']) . "</td>";
-                    echo "<td><img src='./Imagenes/". htmlspecialchars($resultadoBusqueda['imagen']) ."' alt='".htmlspecialchars($resultadoBusqueda['nombre']) ."'  width='50'> </td>";
-                    $tipo= getTipoById($resultadoBusqueda['tipo_id'], $db);
-                    echo "<td><img src='./Imagenes/". htmlspecialchars($tipo) ."' alt='Tipo ".htmlspecialchars($resultadoBusqueda['tipo_id']) ."'  width='50'></td>";
-                    echo "</tr></tbody></table>";
-                }
-
-
-                //muestra tdo por defecto o cuando hay una busqueda no encontrada
-
-                if (!isset($_POST["pokemonBuscado"]) || $resultadoBusqueda === false) {
-
-                    $pokemones = $db->query("SELECT * FROM pokemones");
-
-                    echo "<table class='table table-bordered'>";
-                    echo "<thead><tr><th>Numero</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead>";
-                    echo "<tbody>";
-
-                    foreach ($pokemones as $pokemon){
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
-                        echo "<td>" . htmlspecialchars($pokemon['nombre']) . "</td>";
-                        echo "<td><img src='images/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
-                        $tipo = getTipoById($pokemon['tipo_id'], $db);
-                        echo "<td><img src='images/tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
-                        echo "</tr>";
-                    }
-
-                    echo "</tbody></table>";
-                }
-                ?>
-
+                echo "</tbody></table>";
+            }
+            ?>
         </div>
-    
+
     </main>
 
-<?php
-include 'footer.php';
-?>
+<?php include 'footer.php'; ?>
