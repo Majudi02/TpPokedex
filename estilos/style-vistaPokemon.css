@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+
+.container{
+
+    margin-top: 80px;
+}
+
+.pokemon-container {
+    background-color: #ffffff;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border: 2px solid #e0e0e0;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.pokemon-image {
+    max-width: 300px;
+    margin-right: 20px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+}
+.pokemon-details {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+.pokemon-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-family: "Press Start 2P", system-ui;
+
+}
+
+.pokemon-id {
+    font-size: 1.5rem;
+    color: #888;
+    margin-bottom: 20px;
+}
+.pokemon-description {
+    margin-top: 30px;
+    margin-right: 40px;
+}
+
+.tipo {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+
+}
+
+.pokemon-description, .tipo{
+    font-size: 12px;
+    font-family: "Press Start 2P", system-ui;
+    line-height: 1.5;
+
+}
+.tipo img {
+    margin-right: 10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.color-fuego {
+    color: #ff7111;
+}
+
+.color-planta {
+    color: #3bcb02;
+}
+
+.color-electrico {
+    color: #FFC300;
+}
+
+.color-agua {
+    color: #717ffe;
+}
+
+
+
+@media (max-width: 768px) {
+    body {
+        background-color: #dc1e2e;
+        background-image: none;
+    }
+
+    .container{
+
+        margin-top: 40px;
+    }
+
+    .pokemon-container {
+        background-color: #ffffff;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        border: 2px solid #e0e0e0;
+        margin: 30px;
+    }
+
+    .pokemon-card {
+        width: 90%;
+    }
+
+    .pokemon-image {
+        width: 250px;
+        height: 250px;
+        margin: 20px;
+    }
+
+    .pokemon-name {
+        flex-direction: column;
+        text-align: center;
+        margin: 20px;
+    }
+
+    .pokemon-id {
+        font-size: 18px;
+    }
+
+    .tipo-image {
+        width: 50px;
+        height: 50px;
+    }
+
+
+}
