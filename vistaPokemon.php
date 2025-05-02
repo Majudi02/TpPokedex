@@ -1,7 +1,7 @@
 <?php
 
 include 'header.php';
-require_once 'database.php';
+require_once 'MyDatabase.php';
 
 
 // Verificar si 'id_unico' está en la URL
@@ -51,7 +51,7 @@ if ($id_unico) {
     <body>
     <div class="container">
         <div class="pokemon-container">
-            <img src="imagenes/<?= htmlspecialchars($pokemon['imagen']); ?>" alt="<?= htmlspecialchars($pokemon['nombre']); ?>" class="pokemon-image">
+            <img src="Imagenes/Pokemones/<?= htmlspecialchars($pokemon['imagen']); ?>" alt="<?= htmlspecialchars($pokemon['nombre']); ?>" class="pokemon-image">
 
             <div class="pokemon-card">
                 <div class="pokemon-details">
@@ -59,7 +59,7 @@ if ($id_unico) {
                 </div>
 
                 <div class="tipo">
-                    <img src="imagenes/<?= htmlspecialchars($pokemon['tipo_imagen']); ?>" alt="<?= htmlspecialchars($pokemon['tipo']); ?>" width="50">
+                    <img src="Imagenes/Tipos/<?= htmlspecialchars($pokemon['tipo_imagen']); ?>" alt="<?= htmlspecialchars($pokemon['tipo']); ?>" width="50">
                     <p><strong>Tipo:</strong> <?= htmlspecialchars($pokemon['tipo']); ?></p>
                 </div>
 
@@ -101,7 +101,7 @@ if ($id_unico) {
                 <?php foreach ($pokemones as $pokemon) { ?>
                     <li>
                         <a href="vistaPokemon.php?id_unico=<?= htmlspecialchars($pokemon['id_unico']); ?>">
-                            <img src="imagenes/<?= htmlspecialchars($pokemon['imagen']); ?>" alt="<?= htmlspecialchars($pokemon['nombre']); ?>" width="50">
+                            <img src="Imagenes/Pokemones<?= htmlspecialchars($pokemon['imagen']); ?>" alt="<?= htmlspecialchars($pokemon['nombre']); ?>" width="50">
                             <?= htmlspecialchars($pokemon['nombre']); ?>
                         </a>
                     </li>
