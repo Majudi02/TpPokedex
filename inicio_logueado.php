@@ -81,6 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
             require_once 'MyDatabase.php';
             $db = new MyDatabase();
 
+            $resultadoBusqueda = [];
+
             // Función para obtener el tipo de Pokémon
             function getTipoById($tipo_id, $db) {
                 $resultado = $db->query("SELECT imagen FROM tipo WHERE id = $tipo_id");
@@ -99,15 +101,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
             }
 
             // Si es una lista de pokemones
-            if (isset($resultadoBusqueda) && is_array($resultadoBusqueda)) {
+            if (is_array($resultadoBusqueda) && isset($resultadoBusqueda[0])) {
                 echo "<table class='table table-bordered'>";
                 echo "<thead><tr><th>Numero</th><th>Nombre</th><th>Imagen</th><th>Tipo</th><th>Acciones</th></tr></thead>";
 
                 foreach ($resultadoBusqueda as $pokemon) {
                     echo "<tbody><tr>";
                     echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
-                    echo "<td>" . htmlspecialchars($pokemon['nombre']) . "</td>";
-                    echo "<td><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'>" . htmlspecialchars($pokemon['nombre']) . "</a></td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></a></td>";
                     $tipo = getTipoById($pokemon['tipo_id'], $db);
                     echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
                     echo "<td>
@@ -122,8 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
                 }
                 echo "</tbody></table>";
             }
+
             // Si no hay búsqueda, mostrar todos los pokemones
-            else {
+            if (!isset($_POST["pokemonBuscado"]) || $resultadoBusqueda === false) {
                 $pokemones = $db->query("SELECT * FROM pokemones");
                 echo "<table class='table table-bordered'>";
                 echo "<thead><tr><th>Numero</th><th>Nombre</th><th>Imagen</th><th>Tipo</th><th>Acciones</th></tr></thead>";
@@ -132,8 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Usuario']) && isset($_
                 foreach ($pokemones as $pokemon) {
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($pokemon['id']) . "</td>";
-                    echo "<td>" . htmlspecialchars($pokemon['nombre']) . "</td>";
-                    echo "<td><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'>" . htmlspecialchars($pokemon['nombre']) . "</a></td>";
+                    echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($pokemon['id_unico']) . "'><img src='Imagenes/Pokemones/" . htmlspecialchars($pokemon['imagen']) . "' alt='" . htmlspecialchars($pokemon['nombre']) . "' width='50'></a></td>";
                     $tipo = getTipoById($pokemon['tipo_id'], $db);
                     echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($pokemon['tipo_id']) . "' width='50'></td>";
                     echo "<td>
