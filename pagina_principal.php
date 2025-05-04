@@ -63,17 +63,7 @@ include 'encontrar_pokemon.php';
             }
 
             // Si es un solo pokemon
-            elseif (is_array($resultadoBusqueda) && isset($resultadoBusqueda['id'])) {
-                echo "<h4 class='text-success'>Pokémon Encontrado</h4>";
-                echo "<table class='table table-bordered'>";
-                echo "<thead><tr><th>Número</th><th>Nombre</th><th>Imagen</th><th>Tipo</th></tr></thead><tbody><tr>";
-                echo "<td>" . htmlspecialchars($resultadoBusqueda['id']) . "</td>";
-                echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($resultadoBusqueda['id_unico']) . "'>" . htmlspecialchars($resultadoBusqueda['nombre']) . "</a></td>";
-                echo "<td><a href='vistaPokemon.php?id_unico=" . urlencode($resultadoBusqueda['id_unico']) . "'><img src='Imagenes/Pokemones/" . htmlspecialchars($resultadoBusqueda['imagen']) . "' alt='" . htmlspecialchars($resultadoBusqueda['nombre']) . "' width='50'></a></td>";
-                $tipo = getTipoById($resultadoBusqueda['tipo_id'], $db);
-                echo "<td><img src='Imagenes/Tipos/" . htmlspecialchars($tipo) . "' alt='Tipo " . htmlspecialchars($resultadoBusqueda['tipo_id']) . "' width='50'></td>";
-                echo "</tr></tbody></table>";
-            }
+
 
             // Mostrar todos por defecto o si no se encontró ninguno
             if (!isset($_POST["pokemonBuscado"]) || $resultadoBusqueda === false) {
