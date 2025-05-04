@@ -69,7 +69,7 @@ if ($id_unico) {
                 </div>
                 <div class="contenedor_btn">
                     <button class="btn btn-warning botonform me-6" onclick="regresar()" id="cancelar-boton-login">
-                        <a href="pagina_principal.php">← Volver a la Pokédex</a>
+                        <a href="index.php">← Volver a la Pokédex</a>
                     </button>
                 </div>
             </div>

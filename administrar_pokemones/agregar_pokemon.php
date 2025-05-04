@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 // determino el nombre final de la imagen con el nombre del pokemon
         $imagen_nombre = strtolower($nombre) . "." . $extension;
 
-        $ruta_destino = "Imagenes/Pokemones/" . $imagen_nombre;
+        $ruta_destino = "../Imagenes/Pokemones/" . $imagen_nombre;
 
         if(empty($errores)) { //si no hay errores subo la foto
             if (!move_uploaded_file($imagen_tmp, $ruta_destino)) { //si no se pudo subir la foto, muestro el error
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             echo "</div>";
         }
         if(empty($errores) && $insertar_pokemon) {
-            echo "<div class='alert alert-success''> Pokemon agregado con éxito </div> <a class='btn btn-outline-secondary' href='../inicio_logueado.php'>Todos los Pokemones</a>";
+            echo "<div class='alert alert-success''> Pokemon agregado con éxito </div>";
         }
          ?>
       <div class="card-header">

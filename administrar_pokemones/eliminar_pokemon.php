@@ -14,7 +14,7 @@ $pokemon = $database->query("SELECT * FROM pokemones WHERE id=".$id);
 
     if(!empty($pokemon)){
 
-        $rutaImagen = "../imagenes/" . $pokemon[0]['imagen'];
+        $rutaImagen = "../Imagenes/Pokemones/" . $pokemon[0]['imagen'];
         if (file_exists($rutaImagen)) {
             unlink($rutaImagen);
         }
