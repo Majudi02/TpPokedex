@@ -28,19 +28,19 @@ if (session_status() === PHP_SESSION_NONE) {  //inicia sesion solo si no hay una
 
 <body class="d-flex flex-column min-vh-100">
 
-<header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #d2f4ea;">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
+    <header>
+        <nav class="navbar navbar-expand-lg" style="background-color: #d2f4ea;">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
 
-            <a class="navbar-brand" href="http://localhost/ProyectoPokedex/index.php">
-                <img src="http://localhost/ProyectoPokedex/Imagenes/Logo_img.png" alt="Logo" width="70" height="70" class="ms-3">
-            </a>
-
-            <div class="flex-grow-1 text-center">
-                <a href="http://localhost/ProyectoPokedex/index.php">
-                    <img class="m-0 pb-2" src="http://localhost/ProyectoPokedex/Imagenes/Logo_Pokdex.png" width="210" height="100" alt="Pokedex">
+                <a class="navbar-brand" href="http://localhost/ProyectoPokedex/index.php">
+                    <img src="http://localhost/ProyectoPokedex/Imagenes/Logo_img.png" alt="Logo" width="70" height="70" class="ms-3">
                 </a>
-            </div>
+
+                <div class="flex-grow-1 text-center">
+                    <a href="http://localhost/ProyectoPokedex/index.php">
+                        <img class="m-0 pb-2" src="http://localhost/ProyectoPokedex/Imagenes/Logo_Pokdex.png" width="210" height="100" alt="Pokedex">
+                    </a>
+                </div>
 
             <div class="me-4 d-flex align-items-center">
 

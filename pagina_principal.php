@@ -2,7 +2,8 @@
 session_start();
 
 include 'header.php';
-include 'encontrar_pokemon.php';
+require_once 'encontrar_pokemon.php';
+
 ?>
 
 <?php if (isset($_SESSION['success'])): ?>
@@ -18,7 +19,7 @@ include 'encontrar_pokemon.php';
 
         <div class="container d-flex justify-content-center mt-5">
             <form class="d-flex" style="width: 100%; max-width: 900px;" action="pagina_principal.php" method="post">
-                <div class="input-group">
+                <div class="input-group" >
                     <input class="form-control rounded-start-pill" type="text" name="pokemonBuscado"
                            placeholder="Ingrese el nombre, tipo o número de pokémon">
                     <button class="btn text-white rounded-end-pill" type="submit" style="background-color: #20c997;">
@@ -29,20 +30,26 @@ include 'encontrar_pokemon.php';
         </div>
 
         <div class="container mt-5 pb-5">
+
             <?php
             require_once 'MyDatabase.php';
             $db = new MyDatabase();
-            $resultadoBusqueda = encontrarPokemon($db);
 
-            function getTipoById($tipo_id, $db)
-            {
-                $resultado = $db->query("SELECT imagen FROM tipo WHERE id = $tipo_id");
-                return $resultado ? $resultado[0]['imagen'] : 'default.png';
-            }
+            $resultadoBusqueda = [];
+            if (isset($_POST["pokemonBuscado"])) {
+                $resultadoBusqueda = encontrarPokemon($db);
 
-            if (isset($_POST["pokemonBuscado"]) && $resultadoBusqueda === false) {
-                echo "<div class='text-danger'><h4>¡Pokémon no encontrado!</h4></div>";
+                if ($resultadoBusqueda === false) {
+                    echo "<div class='text-danger'>
+                        <h4>Pokemon no encontrado!</h4>
+                      </div>";
+                }
             }
+                function getTipoById($tipo_id, $db) {
+                    $resultado = $db->query("SELECT imagen FROM tipo WHERE id = $tipo_id");
+                    return $resultado ? $resultado[0]['imagen'] : 'default.png';
+                }
+
 
             // Si es una lista de pokemones
             if (is_array($resultadoBusqueda) && isset($resultadoBusqueda[0])) {
@@ -61,9 +68,6 @@ include 'encontrar_pokemon.php';
 
                 echo "</tbody></table>";
             }
-
-            // Si es un solo pokemon
-
 
             // Mostrar todos por defecto o si no se encontró ninguno
             if (!isset($_POST["pokemonBuscado"]) || $resultadoBusqueda === false) {
@@ -85,6 +89,7 @@ include 'encontrar_pokemon.php';
             }
             ?>
         </div>
+
     </main>
 
 <?php include 'footer.php'; ?>

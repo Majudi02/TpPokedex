@@ -2,9 +2,11 @@
 session_start();
 
 
-if(session_status() === PHP_SESSION_ACTIVE){
-
+if (isset($_SESSION['usuario'])) {
     header('Location: inicio_logueado.php');
+    exit();
+
 } else {
     header('Location: pagina_principal.php');
+    exit();
 }
