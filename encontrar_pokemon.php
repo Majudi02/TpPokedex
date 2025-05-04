@@ -16,6 +16,15 @@ function encontrarPokemon($database){
 }
 
 function buscarPokemonPorTipo($database, $tipo){
-    $pokemonesBuscados = $database->query("SELECT * FROM pokemones JOIN tipo ON pokemones.tipo_id= tipo.id  WHERE tipo ='$tipo'");
-    return $pokemonesBuscados;
+    return $database->query("
+        SELECT 
+            pokemones.id,
+            pokemones.nombre,
+            pokemones.imagen AS imagen,
+            pokemones.id_unico,
+            pokemones.tipo_id
+        FROM pokemones 
+        JOIN tipo ON pokemones.tipo_id = tipo.id 
+        WHERE tipo.tipo = '$tipo'
+    ");
 }
