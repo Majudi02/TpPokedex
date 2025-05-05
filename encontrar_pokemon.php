@@ -3,16 +3,12 @@
 function encontrarPokemon($database){
     if (!isset($_POST["pokemonBuscado"])) return null;
     $textoABuscar = strtolower($_POST["pokemonBuscado"]);
+    $resultadoPokemonDb = $database->query("SELECT * FROM pokemones WHERE nombre LIKE'%$textoABuscar%'OR id LIKE '%$textoABuscar%'");
 
-    if ($textoABuscar == "agua" || $textoABuscar == "electrico" || $textoABuscar == "planta" || $textoABuscar == "fuego") {
-        return buscarPokemonPorTipo($database, $textoABuscar);
-    }
+    $listaDePokemonesDb = buscarPokemonPorTipo($database, $textoABuscar);
+    if (!empty($listaDePokemonesDb)) return $listaDePokemonesDb;
 
-    $resultadoPokemonDb = $database->query("SELECT * FROM pokemones WHERE nombre='$textoABuscar'OR id = '$textoABuscar'");
-
-    if(empty($resultadoPokemonDb)) return false;
-
-    return $resultadoPokemonDb;
+    return !empty($resultadoPokemonDb) ? $resultadoPokemonDb : false;
 }
 
 function buscarPokemonPorTipo($database, $tipo){
@@ -25,6 +21,6 @@ function buscarPokemonPorTipo($database, $tipo){
             pokemones.tipo_id
         FROM pokemones 
         JOIN tipo ON pokemones.tipo_id = tipo.id 
-        WHERE tipo.tipo = '$tipo'
-    ");
+        WHERE tipo.tipo LIKE '%$tipo%'
+        ");
 }
